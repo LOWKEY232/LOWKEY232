@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetPro - Computer Networking Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #0f172a;
+            --accent: #22d3ee;
+            --light: #f1f5f9;
+            --dark: #0f172a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --radius: 8px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            font-size: 32px;
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 28px;
+            color: white;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            color: white;
+            padding-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--secondary);
+        }
+
+        .btn-primary:hover {
+            background-color: #06b6d4;
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 15px auto 0;
+            color: #64748b;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-card i {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Network Models */
+        .network-models {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .model-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .model-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .model-visual {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .model-diagram {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(to bottom, #e2e8f0, #cbd5e1);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .layer {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .layer:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            color: #64748b;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Protocols Section */
+        .protocols {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .protocol-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 3px solid var(--primary);
+        }
+
+        .protocol-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .protocol-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .protocol-card h3 i {
+            color: var(--primary);
+        }
+
+        /* Tools Section */
+        .tools {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tool-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .tool-card i {
+            font-size: 48px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--secondary);
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                transition: var(--transition);
+                padding: 20px 0;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+
+            .hero h2 {
+                font-size: 2.3rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-network-wired"></i>
+                <h1>Net<span>Pro</span></h1>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#models">Network Models</a></li>
+                    <li><a href="#protocols">Protocols</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Advanced Computer Networking Solutions</h2>
+                <p>NetPro provides cutting-edge networking technologies and expertise to optimize your network infrastructure, enhance security, and ensure seamless connectivity for your organization.</p>
+                <div class="hero-btns">
+                    <a href="#models" class="btn btn-primary">Explore Network Models</a>
+                    <a href="#contact" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Networking Solutions</h2>
+                <p>We provide comprehensive networking services to meet all your connectivity needs</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Network Security</h3>
+                    <p>Advanced firewall configurations, intrusion detection systems, and VPN solutions to protect your network from threats.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wifi"></i>
+                    <h3>Wireless Networking</h3>
+                    <p>Enterprise-grade WiFi solutions with seamless roaming, high density support, and centralized management.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Integration</h3>
+                    <p>Hybrid and multi-cloud networking solutions for seamless integration with AWS, Azure, and Google Cloud.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-ethernet"></i>
+                    <h3>Network Infrastructure</h3>
+                    <p>Design and implementation of robust wired networks with high-speed switching and routing capabilities.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Performance Optimization</h3>
+                    <p>Network monitoring, analysis, and optimization to ensure maximum performance and minimal downtime.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-phone-volume"></i>
+                    <h3>VoIP Solutions</h3>
+                    <p>Enterprise VoIP systems with QoS implementation for crystal-clear voice communication.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Network Models Section -->
+    <section class="network-models" id="models">
+        <div class="container">
+            <div class="section-title">
+                <h2>Network Architecture Models</h2>
+                <p>Understanding the foundational models of computer networking</p>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="osi">OSI Model</button>
+                <button class="tab-btn" data-tab="tcpip">TCP/IP Model</button>
+            </div>
+            
+            <div class="model-content">
+                <div class="model-info">
+                    <div class="tab-content active" id="osi-content">
+                        <h3>OSI Model (Open Systems Interconnection)</h3>
+                        <p>The OSI model is a conceptual framework used to understand network interactions in 7 distinct layers. Each layer has a specific function and communicates with the layers above and below it.</p>
+                        <ul>
+                            <li><strong>Application Layer:</strong> Provides network services to user applications</li>
+                            <li><strong>Presentation Layer:</strong> Translates, encrypts, and compresses data</li>
+                            <li><strong>Session Layer:</strong> Establishes, manages, and terminates sessions</li>
+                            <li><strong>Transport Layer:</strong> Provides reliable data transport and flow control</li>
+                            <li><strong>Network Layer:</strong> Handles logical addressing and routing</li>
+                            <li><strong>Data Link Layer:</strong> Provides node-to-node data transfer and error detection</li>
+                            <li><strong>Physical Layer:</strong> Transmits raw bit stream over physical medium</li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" id="tcpip-content">
+                        <h3>TCP/IP Model (Internet Protocol Suite)</h3>
+                        <p>The TCP/IP model is the practical implementation used for internet communications, consisting of 4 abstraction layers.</p>
+                        <ul>
+                            <li><strong>Application Layer:</strong> Combines OSI application, presentation, and session layers</li>
+                            <li><strong>Transport Layer:</strong> Provides end-to-end communication with TCP and UDP</li>
+                            <li><strong>Internet Layer:</strong> Handles addressing, packaging, and routing (IP)</li>
+                            <li><strong>Link Layer:</strong> Combines OSI data link and physical layers</li>
+                        </ul>
+                        <p>TCP/IP is the foundation of modern internet communications and is more concise than the OSI model.</p>
+                    </div>
+                </div>
+                <div class="model-visual">
+                    <div class="model-diagram" id="model-diagram">
+                        <div class="layer">Application Layer</div>
+                        <div class="layer">Presentation Layer</div>
+                        <div class="layer">Session Layer</div>
+                        <div class="layer">Transport Layer</div>
+                        <div class="layer">Network Layer</div>
+                        <div class="layer">Data Link Layer</div>
+                        <div class="layer">Physical Layer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protocols Section -->
+    <section class="protocols" id="protocols">
+        <div class="container">
+            <div class="section-title">
+                <h2>Essential Networking Protocols</h2>
+                <p>Key protocols that enable communication across networks</p>
+            </div>
+            <div class="protocol-grid">
+                <div class="protocol-card">
+                    <h3><i class="fas fa-project-diagram"></i> TCP</h3>
+                    <p>Transmission Control Protocol provides reliable, ordered, and error-checked delivery of data between applications.</p>
+                </div>
+                <div class="protocol-card">
+                    <h3><i class="fas fa-bolt"></i> UDP</h3>
+                    <p>User Datagram Protocol provides connectionless communication with no guarantee of delivery, used for time-sensitive applications.</p>
+                </div>
+                <div class="protocol-card">
+                    <h3><i class="fas fa-map-marked-alt"></i> IP</h3>
+                    <p>Internet Protocol is responsible for addressing and routing packets across network boundaries.</p>
+                </div>
+                <div class="protocol-card">
+                    <h3><i class="fas fa-envelope"></i> HTTP/HTTPS</h3>
+                    <p>Hypertext Transfer Protocol (Secure) for communication between web browsers and servers.</p>
+                </div>
+                <div class="protocol-card">
+                    <h3><i class="fas fa-envelope-open-text"></i> FTP</h3>
+                    <p>File Transfer Protocol for transferring files between client and server on a network.</p>
+                </div>
+                <div class="protocol-card">
+                    <h3><i class="fas fa-mail-bulk"></i> SMTP</h3>
+                    <p>Simple Mail Transfer Protocol for sending and routing email between mail servers.</p>
+                </div>
+                <div class="protocol-card">
+                    <h3><i class="fas fa-server"></i> DNS</h3>
+                    <p>Domain Name System translates domain names to IP addresses for locating internet resources.</p>
+                </div>
+                <div class="protocol-card">
+                    <h3><i class="fas fa-shield-alt"></i> SSL/TLS</h3>
+                    <p>Secure Sockets Layer/Transport Layer Security protocols for secure communications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools" id="tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>Network Management Tools</h2>
+                <p>Essential tools for network administrators and engineers</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Wireshark</h3>
+                    <p>Network protocol analyzer for troubleshooting, analysis, and development</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-terminal"></i>
+                    <h3>Ping & Traceroute</h3>
+                    <p>Basic connectivity testing and path analysis tools</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Nmap</h3>
+                    <p>Network discovery and security auditing tool</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Nagios</h3>
+                    <p>Enterprise-class monitoring system for network infrastructure</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-server"></i>
+                    <h3>PuTTY</h3>
+                    <p>SSH and telnet client for accessing network devices</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-cloud"></i>
+                    <h3>SolarWinds</h3>
+                    <p>Comprehensive network management and monitoring suite</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <i class="fas fa-network-wired"></i>
+                        <h3>Net<span>Pro</span></h3>
+                    </div>
+                    <p>Advanced networking solutions for enterprises, data centers, and cloud environments. Trusted by industry leaders worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Services</a></li>
+                        <li><a href="#models">Network Models</a></li>
+                        <li><a href="#protocols">Protocols</a></li>
+                        <li><a href="#tools">Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, San Francisco, CA</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@netpro.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive updates, networking tips, and industry insights.</p>
+                    <form>
+                        <input type="email" placeholder="Your Email" style="width:100%; padding:10px; margin-bottom:10px; border-radius:var(--radius); border:none;">
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 NetPro. All rights reserved. Designed with <i class="fas fa-heart" style="color:var(--accent);"></i> for network professionals.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Tab Functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+                
+                // Update diagram visualization
+                updateDiagram(tabId);
+            });
+        });
+
+        // Update diagram based on selected model
+        function updateDiagram(model) {
+            const diagram = document.getElementById('model-diagram');
+            diagram.innerHTML = '';
+            
+            if (model === 'osi') {
+                const layers = [
+                    'Application Layer',
+                    'Presentation Layer',
+                    'Session Layer',
+                    'Transport Layer',
+                    'Network Layer',
+                    'Data Link Layer',
+                    'Physical Layer'
+                ];
+                
+                layers.forEach(layer => {
+                    const layerEl = document.createElement('div');
+                    layerEl.className = 'layer';
+                    layerEl.textContent = layer;
+                    diagram.appendChild(layerEl);
+                });
+            } else {
+                const layers = [
+                    'Application Layer',
+                    'Transport Layer',
+                    'Internet Layer',
+                    'Link Layer'
+                ];
+                
+                layers.forEach(layer => {
+                    const layerEl = document.createElement('div');
+                    layerEl.className = 'layer';
+                    layerEl.textContent = layer;
+                    layerEl.style.padding = '20px';
+                    diagram.appendChild(layerEl);
+                });
+            }
+        }
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                }
+            });
+        });
+
+        // Sticky Header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 100);
+        });
+    </script>
+</body>
+</html>
